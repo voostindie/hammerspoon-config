@@ -1,14 +1,22 @@
 -- No animations please:
 hs.window.animationDuration = 0
 
-function centerFrontMostWindow()
+local function exitModalHotkey(hotkey)
+    if hotkey then
+        hotkey:exit()
+    end
+end
+
+
+function centerFrontMostWindow(hotkey)
     local frontMostWindow = hs.window.focusedWindow()
-    if not frontMostWindow then return end
+    if not frontMostWindow then return exitModalHotkey(hotkey) end
     local windowFrame = frontMostWindow:frame()
     local screenFrame = frontMostWindow:screen():frame()
     windowFrame.x = (screenFrame.w - windowFrame.w) / 2
     windowFrame.y = (screenFrame.h - windowFrame.h) / 2
     frontMostWindow:setFrame(windowFrame)
+    exitModalHotkey(hotkey)
 end
 
 -- When maximizing windows, the old frame is stored in memory so that a
@@ -48,14 +56,15 @@ local function restoreWindow(window)
     maximizedWindowCount = maximizedWindowCount - 1
 end
 
-function toggleFrontMostWindowMaximized()
+function toggleFrontMostWindowMaximized(hotkey)
     local frontMostWindow = hs.window.focusedWindow()
-    if not frontMostWindow then return end
+    if not frontMostWindow then return exitModalHotkey(hotkey) end
     if maximizedWindows[frontMostWindow:id()] then
         restoreWindow(frontMostWindow)
     else
         maximizeWindow(frontMostWindow)
     end
+    exitModalHotkey(hotkey)
 end
 
 local function restoreMaximizedWindows()
@@ -69,4 +78,32 @@ function cleanupWindowManagement()
     restoreMaximizedWindows()
     maximizedWindows = nil
     maximizedWindowCount = nil
+end
+
+function moveFrontMostWindow(x, y)
+    local frontMostWindow = hs.window.focusedWindow()
+    if not frontMostWindow then return end
+    local windowFrame = frontMostWindow:frame()
+    windowFrame.x = windowFrame.x + x
+    windowFrame.y = windowFrame.y + y
+    frontMostWindow:setFrame(windowFrame)
+end
+
+-- Create the hotkey to bind all kinds of window management functions to
+-- The same hotkey, as well as Escape can be used to disable the mode again
+function setupWindowManagementModalHotkey(modifiers, key)
+    local hotkey = hs.hotkey.modal.new(modifiers, key)
+    function hotkey:entered()
+        hs.alert.show("Window management mode entered", 0.5)
+    end
+    function hotkey:exited()
+        hs.alert.show("Window management mode exited", 0.5)
+    end
+    hotkey:bind({}, "escape", function()
+        hotkey:exit()
+    end)
+    hotkey:bind(modifiers, key, function()
+        hotkey:exit()
+    end)
+    return hotkey
 end
