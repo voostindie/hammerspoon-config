@@ -35,6 +35,7 @@ wm = setupWindowManagementModalHotkey({}, "§")
 wm:bind({}, "c", function() centerFrontMostWindow(wm) end)
 wm:bind({}, "tab", function() centerFrontMostWindow(wm) end)
 wm:bind({}, "m", function() toggleFrontMostWindowMaximized(wm) end)
+wm:bind({}, "f", function() toggleFrontMostWindowFullScreen(wm) end)
 
 wm:bind({}, "left", function() moveFrontMostWindow(-bigStep, 0) end)
 wm:bind({}, "right", function() moveFrontMostWindow(bigStep, 0) end)

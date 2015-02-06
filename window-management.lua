@@ -67,6 +67,13 @@ function toggleFrontMostWindowMaximized(hotkey)
     exitModalHotkey(hotkey)
 end
 
+function toggleFrontMostWindowFullScreen(hotkey)
+    local frontMostWindow = hs.window.focusedWindow()
+    if not frontMostWindow then return exitModalHotkey(hotkey) end
+    frontMostWindow:toggleFullScreen()
+    exitModalHotkey(hotkey)
+end
+
 local function restoreMaximizedWindows()
     for id, frame in pairs(maximizedWindows) do
         local window = hs.window.windowForID(id)
