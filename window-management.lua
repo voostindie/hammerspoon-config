@@ -101,10 +101,10 @@ end
 function setupWindowManagementModalHotkey(modifiers, key)
     local hotkey = hs.hotkey.modal.new(modifiers, key)
     function hotkey:entered()
-        hs.alert.show("Window management mode entered", 0.5)
+        hs.alert.show("Window management mode ON", 0.5)
     end
     function hotkey:exited()
-        hs.alert.show("Window management mode exited", 0.5)
+        hs.alert.show("Window management mode OFF", 0.5)
     end
     hotkey:bind({}, "escape", function()
         hotkey:exit()

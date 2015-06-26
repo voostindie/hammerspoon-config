@@ -11,7 +11,7 @@ function reloadConfiguration()
 end
 
 function showDateAndTime()
-    hs.alert(os.date("It's %R on %B %e, %G"), 2)
+    hs.alert(os.date("It's %R on %e %B %G"), 2)
 end
 
 --
