@@ -3,6 +3,7 @@ hs.alert("(Re)loading Hammerspoon configuration", 1)
 require "terminal"
 require "caffeine"
 require "window-management"
+require "app-shortcuts"
 
 function reloadConfiguration()
     removeCaffeine()
