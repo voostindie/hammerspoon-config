@@ -16,12 +16,12 @@ local apps = {
     "iTunes"
 }
 
-local help = "Application shortcuts (Ctrl + <n>):\n\n"
+local help = ""
 
 -- Set up a hotkey for each app. Note that this breaks if there are more than
 -- 9 apps in the list!
 for index, name in ipairs(apps) do
-    help = help .. tostring(index) ..  ": " .. name .. "\n"
+    help = help .. "⌃" .. tostring(index) ..  ": " .. name .. "\n"
     hs.hotkey.bind("ctrl", tostring(index), function()
         local app = hs.appfinder.appFromName(name)
         hs.application.launchOrFocus(name)
