@@ -22,7 +22,7 @@ local help = ""
 for index, name in ipairs(apps) do
     help = help .. "⌃" .. tostring(index) ..  ": " .. name .. "\n"
     hs.hotkey.bind("ctrl", tostring(index), function()
-        local app = hs.appfinder.appFromName(name)
+        local app = hs.application.find(name)
         hs.application.launchOrFocus(name)
     end)
 end
