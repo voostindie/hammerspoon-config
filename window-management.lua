@@ -112,5 +112,10 @@ function setupWindowManagementModalHotkey(modifiers, key)
     hotkey:bind(modifiers, key, function()
         hotkey:exit()
     end)
+    hotkey:bind({}, "g", function()
+        hs.grid.show(function ()
+            hotkey:exit()
+        end)
+    end)
     return hotkey
 end
