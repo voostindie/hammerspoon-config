@@ -19,14 +19,28 @@ end
 -- Hotkeys
 --
 
-local cmd = {"cmd"}
-local mash = {"cmd", "alt", "ctrl"}
-local alt = {"alt"}
+local cmd = {"⌘"}
+local mash = {"⌘", "⌥", "⌃"}
+local alt = {"⌥"}
+local shortcuts = {"⌘", "⌥"}
 
 hs.hotkey.bind(cmd,  "§", function() toggleTerminal() end)
 hs.hotkey.bind(mash, "=", function() toggleCaffeine() end)
 hs.hotkey.bind(mash, "-", function() showDateAndTime() end)
 hs.hotkey.bind(mash, "r", function() reloadConfiguration() end)
+
+setupApplicationHotkeys(shortcuts, {
+    "Finder",
+    "Safari",
+    "TextMate",
+    "OmniFocus",
+    "Reeder",
+    "Mail",
+    "Keynote",
+    "IntelliJ IDEA 15",
+    "iTunes",
+    "Citrix Viewer"
+})
 
 local smallStep = 5
 local bigStep = 25

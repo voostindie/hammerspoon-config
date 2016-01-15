@@ -1,37 +1,33 @@
--- Sets up application shortcuts - Cmd + Alt + <number> - for the top 10 apps
+-- Sets up application shortcuts - <mods> + <number> - for the top 10 apps
 --
--- Cmd + Alt + § shows the list of application shortcuts
+-- <mods> + § shows the list of application shortcuts
 
-local mods = {"⌘", "⌥"}
-local mods_text = table.concat(mods)
-
-local apps = {
-    "Safari",
-    "TextMate",
-    "OmniFocus",
-    "Reeder",
-    "Mail",
-    "Keynote",
-    "IntelliJ IDEA 15",
-    "OmniGraffle",
-    "iTunes",
-    "Citrix Viewer"
-}
-
-local help = ""
-
-for index, name in ipairs(apps) do
-    if index > 10 then return end
-    local shortcut = index % 10
-    help = help .. mods_text .. tostring(shortcut) ..  ": " .. name .. "\n"
-    hs.hotkey.bind(mods, tostring(shortcut), function()
-        local app = hs.application.find(name)
-        if app then
-            app:activate()
-        else
-            hs.alert(name .. " is not running")
-        end
-    end)
+local function activateApplication(name)
+    local app = hs.application.find(name)
+    if app then
+        app:activate()
+    else
+        hs.alert(name .. " is not running", 0.3)
+    end
 end
 
-hs.hotkey.bind(mods, "§", function() hs.alert(help, 4) end)
+function setupApplicationHotkeys(mods, apps)
+    local help = ""
+    local mods_text = table.concat(mods)
+
+    for index, name in ipairs(apps) do
+        if index <= 10 then
+            local shortcut = index % 10
+            help = help .. mods_text ..
+                tostring(shortcut) ..  ": " .. name .. "\n"
+            hs.hotkey.bind(mods, tostring(shortcut), function()
+                activateApplication(name)
+            end)
+        end
+    end
+
+    help = help:gsub("^%s*(.-)%s*$", "%1")
+
+    hs.hotkey.bind(mods, "§", function() hs.alert(help, 4) end)
+end
+
