@@ -20,8 +20,8 @@ local apps = {
 
 local help = ""
 
--- Set up a hotkey for each app. This breaks if there are more than 9 apps!
 for index, name in ipairs(apps) do
+    if index > 10 then return end
     local shortcut = index % 10
     help = help .. mods_text .. tostring(shortcut) ..  ": " .. name .. "\n"
     hs.hotkey.bind(mods, tostring(shortcut), function()
