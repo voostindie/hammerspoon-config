@@ -32,12 +32,12 @@ hs.hotkey.bind(mash, "r", function() reloadConfiguration() end)
 setupApplicationHotkeys(shortcuts, {
     "Finder",
     "Safari",
-    "TextMate",
     "OmniFocus",
+    "TextMate",
+    "Byword",
     "Reeder",
     "Mail",
     "Keynote",
-    "IntelliJ IDEA 15",
     "iTunes",
     "Citrix Viewer"
 })
