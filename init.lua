@@ -34,10 +34,10 @@ setupApplicationHotkeys(shortcuts, {
     "Safari",
     "OmniFocus",
     "TextMate",
-    "Byword",
+    "MindNode",
     "Reeder",
     "Mail",
-    "Keynote",
+    "Microsoft PowerPoint",
     "iTunes",
     "Citrix Viewer"
 })
