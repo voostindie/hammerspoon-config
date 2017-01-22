@@ -2,12 +2,10 @@ hs.alert("(Re)loading Hammerspoon configuration", 1)
 
 require "terminal"
 require "caffeine"
-require "window-management"
-require "app-shortcuts"
+require "app-switcher"
 
 function reloadConfiguration()
     removeCaffeine()
-    cleanupWindowManagement()
     hs.reload()
 end
 
@@ -22,42 +20,26 @@ end
 local cmd = {"⌘"}
 local mash = {"⌘", "⌥", "⌃"}
 local alt = {"⌥"}
-local shortcuts = {"⌘", "⌥"}
 
-hs.hotkey.bind(cmd,  "§", function() toggleTerminal() end)
-hs.hotkey.bind(mash, "=", function() toggleCaffeine() end)
-hs.hotkey.bind(mash, "-", function() showDateAndTime() end)
-hs.hotkey.bind(mash, "r", function() reloadConfiguration() end)
+hs.hotkey.bind(cmd,  "§", toggleTerminal)
+hs.hotkey.bind(mash, "=", toggleCaffeine)
+hs.hotkey.bind(mash, "-", showDateAndTime)
+hs.hotkey.bind(mash, "r", reloadConfiguration)
 
-setupApplicationHotkeys(shortcuts, {
-    "Finder",
-    "Safari",
-    "OmniFocus",
-    "TextMate",
-    "MindNode",
-    "Reeder",
-    "Mail",
-    "Microsoft PowerPoint",
-    "iTunes",
-    "Citrix Viewer"
-})
-
-local smallStep = 5
-local bigStep = 25
-
-wm = setupWindowManagementModalHotkey({}, "§")
-
-wm:bind({}, "c", function() centerFrontMostWindow(wm) end)
-wm:bind({}, "tab", function() centerFrontMostWindow(wm) end)
-wm:bind({}, "m", function() toggleFrontMostWindowMaximized(wm) end)
-wm:bind({}, "f", function() toggleFrontMostWindowFullScreen(wm) end)
-
-wm:bind({}, "left", function() moveFrontMostWindow(-bigStep, 0) end)
-wm:bind({}, "right", function() moveFrontMostWindow(bigStep, 0) end)
-wm:bind({}, "up", function() moveFrontMostWindow(0, -bigStep) end)
-wm:bind({}, "down", function() moveFrontMostWindow(0, bigStep) end)
-
-wm:bind(alt, "left", function() moveFrontMostWindow(-smallStep, 0) end)
-wm:bind(alt, "right", function() moveFrontMostWindow(smallStep, 0) end)
-wm:bind(alt, "up", function() moveFrontMostWindow(0, -smallStep) end)
-wm:bind(alt, "down", function() moveFrontMostWindow(0, smallStep) end)
+setupApplicationLauncherModalHotkey({}, "§")
+registerApplicationHotkey("a", "Acorn")
+registerApplicationHotkey("c", "Citrix Viewer")
+registerApplicationHotkey("d", "Dash")
+registerApplicationHotkey("f", "Finder")
+registerApplicationHotkey("g", "OmniGraffle")
+registerApplicationHotkey("i", "iTunes")
+registerApplicationHotkey("j", "IntelliJ IDEA")
+registerApplicationHotkey("k", "Keynote")
+registerApplicationHotkey("r", "Reeder")
+registerApplicationHotkey("m", "Mail")
+registerApplicationHotkey("o", "OmniFocus")
+registerApplicationHotkey("p", "Microsoft PowerPoint")
+registerApplicationHotkey("s", "Safari")
+registerApplicationHotkey("t", "TextMate")
+registerApplicationHotkey("u", "Ulysses")
+registerApplicationHotkey("w", "WhatsApp")
