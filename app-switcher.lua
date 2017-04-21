@@ -41,7 +41,11 @@ end
 local function activateApplication(name)
     local app = hs.application.find(name)
     if app then
-        app:activate()
+        if app:activate() and not app:focusedWindow() then
+            -- The application was activated but no window was shown. Try again:
+            -- (This is OmniFocus, which has a global popup window)
+            app:selectMenuItem({"Window", "Main Window"})
+        end
     else
         hs.alert(name .. " is not running", 0.5)
     end
