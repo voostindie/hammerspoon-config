@@ -2,6 +2,8 @@
 
 This repository contains my [Hammerspoon](http://www.hammerspoon.org) configuration, for automating OS X.
 
+**Update September 2021**: as I haven't used Hammerspoon in the last 5 years or so, I'm archiving this project.
+
 ## License (MIT)
 
 Copyright (c) 2017 Vincent Oostindië
